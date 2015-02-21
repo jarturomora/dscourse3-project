@@ -1,6 +1,8 @@
 #######################################################################
 #Task 1: Merges the training and the test sets to create one data set.#
 #######################################################################
+print("Task 1: Merging the training and test sets in a new data set.")
+print("-------------------------------------------------------------")
 # Loading feature names
 featureNames <- read.table("data/features.txt")
 # Load "training" data
@@ -23,4 +25,11 @@ colnames(y_data) <- "Activity-id"
 volunteer_data <- rbind(voluteer_trainData, voluteer_testData)
 # Final data merge
 mergedData <- cbind(y_data,x_data)
-print("Script Message: New data set created :-)")
+print("Script Message: New data set created, the new data frame is the 'mergedData' object :-)")
+
+###############################################################################################
+#Task 2: Extracts only the measurements on the mean and standard deviation on each measurement#
+###############################################################################################
+print("Task 2: Extracts only the measurements on the mean and standard deviation on each measurement")
+print("---------------------------------------------------------------------------------------------")
+task2Data <- mergedData[, grep("+(std|mean)\\(\\)", names(mergedData))]
