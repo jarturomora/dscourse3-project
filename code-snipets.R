@@ -21,7 +21,7 @@ print("Script Message: Tests data loaded :-)")
 x_data <- rbind(x_trainingData, x_testsData)
 colnames(x_data) <- featureNames[,2]
 y_data <- rbind(y_trainingData, y_testsData)
-colnames(y_data) <- "Activity-id"
+colnames(y_data) <- "Activity"
 volunteer_data <- rbind(voluteer_trainData, voluteer_testData)
 # Final data merge
 mergedData <- cbind(y_data,x_data)
@@ -32,4 +32,17 @@ print("Script Message: New data set created, the new data frame is the 'mergedDa
 ###############################################################################################
 print("Task 2: Extracts only the measurements on the mean and standard deviation on each measurement")
 print("---------------------------------------------------------------------------------------------")
+# Here I use a regular expression to extract the colums related with a standard deviation or a mean value
 task2Data <- mergedData[, grep("+(std|mean)\\(\\)", names(mergedData))]
+print("Script Message: New data set created, the new data frame is the 'task2Data' object :-)")
+
+############################################################################
+#Task 3: Uses descriptive activity names to name activities in the data set#
+############################################################################
+print("Task 3: Uses descriptive activity names to name activities in the data set")
+print("--------------------------------------------------------------------------")
+# Using a factor to change the name of the Activity-ids for their corresponding name.
+print("Script Message: Change of the Activity-ids for their corresponding names starts")
+activityName <- read.table("data/activity_labels.txt")
+mergedData$Activity <- as.character(factor(mergedData$Activity, labels = activityName[,2]))
+print("Script Message: Activities' names have been assigned to data set")
