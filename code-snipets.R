@@ -19,12 +19,13 @@ print("Script Message: Tests data loaded :-)")
 
 # Create a unique data set with traing and tests data
 x_data <- rbind(x_trainingData, x_testsData)
-colnames(x_data) <- featureNames[,2]
+colnames(x_data) <- featureNames[,2] # Gives solution to Task 4
 y_data <- rbind(y_trainingData, y_testsData)
-colnames(y_data) <- "Activity"
+colnames(y_data) <- "Activity" # Gives solution to Task 4
 volunteer_data <- rbind(voluteer_trainData, voluteer_testData)
+colnames(volunteer_data) <- "Volunteer" # Gives solution to Task 4
 # Final data merge
-mergedData <- cbind(y_data,x_data)
+mergedData <- cbind(volunteer_data, y_data, x_data)
 print("Script Message: New data set created, the new data frame is the 'mergedData' object :-)")
 
 ###############################################################################################
@@ -34,7 +35,8 @@ print("Task 2: Extracts only the measurements on the mean and standard deviation
 print("---------------------------------------------------------------------------------------------")
 # Here I use a regular expression to extract the colums related with a standard deviation or a mean value
 task2Data <- mergedData[, grep("+(std|mean)\\(\\)", names(mergedData))]
-print("Script Message: New data set created, the new data frame is the 'task2Data' object :-)")
+filteredData <- cbind(volunteer_data, y_data, task2Data)
+print("Script Message: New data set created, the new data frame is the 'filteredData' object :-)")
 
 ############################################################################
 #Task 3: Uses descriptive activity names to name activities in the data set#
@@ -44,5 +46,14 @@ print("-------------------------------------------------------------------------
 # Using a factor to change the name of the Activity-ids for their corresponding name.
 print("Script Message: Change of the Activity-ids for their corresponding names starts")
 activityName <- read.table("data/activity_labels.txt")
-mergedData$Activity <- as.character(factor(mergedData$Activity, labels = activityName[,2]))
+filteredData$Activity <- as.character(factor(filteredData$Activity, labels = activityName[,2]))
 print("Script Message: Activities' names have been assigned to data set")
+
+#######################################################################
+#Task 4: Appropriately labels the data with descriptive variabe names.#
+#######################################################################
+
+# -------------------------
+# Comments for code reviews
+# -------------------------
+# I have already perform this task at the begging of the code in lines 22, 24 and 26
