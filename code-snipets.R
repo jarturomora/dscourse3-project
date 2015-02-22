@@ -57,3 +57,14 @@ print("Script Message: Activities' names have been assigned to data set")
 # Comments for code reviews
 # -------------------------
 # I have already perform this task at the begging of the code in lines 22, 24 and 26
+
+#####################################################################################################
+#Task 5: Create a second tidy data set with the mean of each variable for each Subject and Activity.#
+#####################################################################################################
+library(plyr)
+# Create the new data set aggregating Volunteers and Activities and calculating the mean of each variable
+averageData <- aggregate(. ~Volunteer + Activity, filteredData, mean)
+# Order the new data set just for fashion :-P
+averageData <- averageData[order(averageData$Volunteer, averageData$Activity),]
+# Create a text file with new tidy data
+write.table(averageData, file = "data/newTidyData.txt", row.name = FALSE)
