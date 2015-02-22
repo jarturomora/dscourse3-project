@@ -6,16 +6,22 @@ print("-------------------------------------------------------------")
 # Loading feature names
 featureNames <- read.table("data/features.txt")
 # Load "training" data
+print("Script Message: Loading training data, please wait...")
 x_trainingData <- read.table("data/train/X_train.txt")
 y_trainingData <- read.table("data/train/y_train.txt")
 voluteer_trainData <- read.table("data/train/subject_train.txt")
 print("Script Message: Traning data loaded :-)")
 
 # Loading "tests" data
+print("Script Message: Loading tests data, please wait...")
 x_testsData <- read.table("data/test/X_test.txt")
 y_testsData <- read.table("data/test/y_test.txt")
-voluteer_testData <- read.table("data/test/subject_test.txt")
 print("Script Message: Tests data loaded :-)")
+
+# Loading "volunteers" data
+print("Script Message: Loading volunteers data, please wait...")
+voluteer_testData <- read.table("data/test/subject_test.txt")
+print("Script Message: Volunteers data loaded :-)")
 
 # Create a unique data set with traing and tests data
 x_data <- rbind(x_trainingData, x_testsData)
@@ -56,11 +62,16 @@ print("Script Message: Activities' names have been assigned to data set")
 # -------------------------
 # Comments for code reviews
 # -------------------------
-# I have already perform this task at the begging of the code in lines 22, 24 and 26
+# I have already perform this task at the begging of the code in lines 28, 30 and 32
+print("Task 4: Appropriately labels the data with descriptive variable names")
+print("---------------------------------------------------------------------")
+print("Script Message: Labeling of variable names done :-)")
 
 #####################################################################################################
 #Task 5: Create a second tidy data set with the mean of each variable for each Subject and Activity.#
 #####################################################################################################
+print("Task 5: Create a second tidy data set with the mean of each variable for each Subject and Activity")
+print("--------------------------------------------------------------------------------------------------")
 library(plyr)
 # Create the new data set aggregating Volunteers and Activities and calculating the mean of each variable
 averageData <- aggregate(. ~Volunteer + Activity, filteredData, mean)
@@ -68,3 +79,4 @@ averageData <- aggregate(. ~Volunteer + Activity, filteredData, mean)
 averageData <- averageData[order(averageData$Volunteer, averageData$Activity),]
 # Create a text file with new tidy data
 write.table(averageData, file = "data/newTidyData.txt", row.name = FALSE)
+print("Script Message: New tidy data set created, the new data frame is the 'averageData' object and has been saved in the file 'data/newTidyData.txt' :-)")
